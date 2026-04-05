@@ -1,6 +1,5 @@
 // Copyright 2021 NNTU-CS
 #include <algorithm>
-std::sort(arr, arr + len);
 int countPairs1(int *arr, int len, int value) {
     int count = 0;
     for (int i = 0; i < len; i++) {
@@ -51,9 +50,8 @@ int countPairs3(int *arr, int len, int value) {
     int count = 0;
     for (int i = 0; i < len - 1; ++i) {
         int target = value - arr[i];
-        auto lower = std::lower_bound(arr + i + 1, arr + len, target);
-        auto upper = std::upper_bound(arr + i + 1, arr + len, target);
-        count += upper - lower;
+        auto range = std::equal_range(arr + i + 1, arr + len, target);
+        count += range.second - range.first;
     }
     return count;
 }
