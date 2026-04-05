@@ -23,20 +23,20 @@ int countPairs2(int *arr, int len, int value) {
                 count += n * (n - 1) / 2;
                 break;
             } else {
-                int left_val = arr[left];
-                int left_count = 0;
-                while (left <= right && arr[left] == left_val) {
-                    left_count++;
+                int leftCount = 1;
+                int rightCount = 1;
+                while (left + 1 < right && arr[left] == arr[left + 1]) {
                     left++;
+                    leftCount++;
                 }
-                int right_val = arr[right];
-                int right_count = 0;
-                while (right >= left && arr[right] == right_val) {
-                    right_count++;
+                while (right - 1 > left && arr[right] == arr[right - 1]) {
                     right--;
+                    rightCount++;
                 }
-                count += left_count * right_count;
+                count += leftCount * rightCount;
             }
+            left++;
+            right--;
         } else if (sum < value) {
             left++;
         } else {
@@ -48,31 +48,11 @@ int countPairs2(int *arr, int len, int value) {
 
 int countPairs3(int *arr, int len, int value) {
     int count = 0;
-    for (int i = 0; i < len - 1; i++) {
+    for (int i = 0; i < len - 1; ++i) {
         int target = value - arr[i];
-        int left = i + 1;
-        int right = len - 1;
-        int first = -1;
-        while (left <= right) {
-            int mid = left + (right - left) / 2;
-            if (arr[mid] == target) {
-                first = mid;
-                right = mid - 1;  
-            } else if (arr[mid] < target) {
-                left = mid + 1;
-            } else {
-                right = mid - 1;
-            }
-        }
-        if (first != -1) {
-            int last = first;
-            while (last < len && arr[last] == target) {
-                last++;
-            }
-            last--;
-            int occurrences = last - first + 1;
-            count += occurrences;
-        }
+        auto lower = std::lower_bound(arr + i + 1, arr + len, target);
+        auto upper = std::upper_bound(arr + i + 1, arr + len, target);
+        count += upper - lower;
     }
     return count;
 }
