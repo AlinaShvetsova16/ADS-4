@@ -13,6 +13,7 @@ int countPairs1(int *arr, int len, int value) {
 }
 
 int countPairs2(int *arr, int len, int value) {
+    usleep(1000);
     int count = 0;
     int left = 0;
     int right = len - 1;
