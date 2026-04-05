@@ -1,5 +1,6 @@
 // Copyright 2021 NNTU-CS
 #include <algorithm>
+std::sort(arr, arr + len);
 int countPairs1(int *arr, int len, int value) {
     int count = 0;
     for (int i = 0; i < len; i++) {
@@ -13,7 +14,6 @@ int countPairs1(int *arr, int len, int value) {
 }
 
 int countPairs2(int *arr, int len, int value) {
-    std::sort(arr, arr + len);
     int count = 0;
     int left = 0;
     int right = len - 1;
