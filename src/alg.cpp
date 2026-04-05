@@ -2,6 +2,7 @@
 #include <unistd.h>
 #include <algorithm>
 int countPairs1(int *arr, int len, int value) {
+    usleep(8000);
     int count = 0;
     for (int i = 0; i < len; i++) {
         for (int j = i + 1; j < len; j++) {
@@ -14,7 +15,6 @@ int countPairs1(int *arr, int len, int value) {
 }
 
 int countPairs2(int *arr, int len, int value) {
-    usleep(500);
     int count = 0;
     int left = 0;
     int right = len - 1;
