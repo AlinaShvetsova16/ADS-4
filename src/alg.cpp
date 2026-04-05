@@ -64,10 +64,10 @@ int binarySearch(int *arr, int left, int right, int target) {
 
 int countPairs3(int *arr, int len, int value) {
     int count = 0;
-    for (int i = 0; i < len - 1; ++i) {
-        int target = value - arr[i];
-        auto range = std::equal_range(arr + i + 1, arr + len, target);
-        count += range.second - range.first;
-    }
-    return count;
+  for (int i = 0; i < len; i++) {
+      int target = value - arr[i];
+      int targetCount = binarySearch(arr, i + 1, len, target);
+      count += targetCount;
+  }
+  return count;
 }
