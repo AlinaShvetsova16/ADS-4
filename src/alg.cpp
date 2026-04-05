@@ -1,8 +1,6 @@
 // Copyright 2021 NNTU-CS
-#include <unistd.h>
 #include <algorithm>
 int countPairs1(int *arr, int len, int value) {
-    usleep(10000);
     int count = 0;
     for (int i = 0; i < len; i++) {
         for (int j = i + 1; j < len; j++) {
@@ -15,6 +13,7 @@ int countPairs1(int *arr, int len, int value) {
 }
 
 int countPairs2(int *arr, int len, int value) {
+    std::sort(arr, arr + len);
     int count = 0;
     int left = 0;
     int right = len - 1;
@@ -26,19 +25,18 @@ int countPairs2(int *arr, int len, int value) {
                 count += n * (n - 1) / 2;
                 break;
             } else {
-                int left_val = arr[left];
-                int left_count = 0;
-                while (left <= right && arr[left] == left_val) {
+                int left_count = 1, right_count = 1;
+                while (left + 1 < right && arr[left] == arr[left + 1]) {
                     left_count++;
-                    left++;
+            left++;
                 }
-                int right_val = arr[right];
-                int right_count = 0;
-                while (right >= left && arr[right] == right_val) {
-                    right_count++;
-                    right--;
+                while (right - 1 > left && arr[right] == arr[right - 1]) {
+            right_count++;
+            right--;
                 }
                 count += left_count * right_count;
+                left++;
+                right--;
             }
         } else if (sum < value) {
             left++;
